@@ -1,7 +1,37 @@
-# SAP BTP CAP JavaScript Project
+# SAP BTP CAP JavaScript Project - Bookshop Sample
 
 ## Project Overview
-This is a Node.js project built using the SAP Cloud Application Programming (CAP) model for SAP Business Technology Platform (BTP). CAP provides a framework for building enterprise-grade applications with built-in support for multitenancy, authentication, and integration with SAP services.
+This is a comprehensive proof-of-concept Node.js project demonstrating enterprise-grade application development using the SAP Cloud Application Programming (CAP) model for SAP Business Technology Platform (BTP). The project implements a bookshop service that showcases core CAP capabilities including entity modeling, service implementation, custom actions, and cloud-native deployment patterns.
+
+## Project Goals and Success Criteria
+
+### Primary Objectives
+- **Demonstrate CAP Framework Mastery**: Showcase comprehensive understanding of SAP CAP architecture, from data modeling to service implementation
+- **Cloud-Native Implementation**: Build a production-ready application that follows SAP BTP best practices for scalability, security, and maintainability
+- **Enterprise Integration**: Establish patterns for authentication, authorization, and multi-tenant deployment suitable for enterprise environments
+- **Development Workflow**: Create a complete development-to-deployment pipeline that can serve as a template for future CAP projects
+
+### Success Metrics
+- ✅ **Functional Service**: Working REST API with full CRUD operations for book management
+- ✅ **Custom Business Logic**: Implementation of custom actions (createBook) and functions (getBooksByGenre)
+- ✅ **Data Persistence**: SQLite for development, HANA-ready for production deployment
+- ✅ **Security Integration**: XSUAA configuration for role-based access control
+- ✅ **Cloud Deployment**: MTA-based deployment pipeline for SAP BTP Cloud Foundry
+- ✅ **Logging & Monitoring**: Structured logging with configurable levels and application insights integration
+
+### Target Audience
+- **Enterprise Developers**: Teams transitioning to SAP CAP from traditional SAP development models
+- **Solution Architects**: Technical leaders designing cloud-native SAP solutions
+- **DevOps Engineers**: Teams implementing CI/CD pipelines for SAP BTP applications
+- **Technical Consultants**: Professionals implementing customer solutions on SAP BTP
+
+### Key Features Implemented
+- **Entity Management**: Books entity with comprehensive attributes (title, author, genre, price, stock, description)
+- **Service Operations**: Standard OData operations plus custom business actions
+- **Data Seeding**: Sample data management for development and testing
+- **Security Framework**: Role-based access control with Admin and User roles
+- **Development Tools**: Hot-reload development server with comprehensive logging
+- **Production Deployment**: Multi-target application with HANA Cloud integration
 
 ## Technology Stack
 - **Runtime**: Node.js
@@ -13,7 +43,8 @@ This is a Node.js project built using the SAP Cloud Application Programming (CAP
 ## Development Setup
 
 ### Prerequisites
-- Node.js (version 18+ recommended)
+- Node.js (version 20+ recommended)
+- @sap/cds": "^9"
 - npm or yarn
 - SAP CAP CLI: `npm install -g @sap/cds-dk`
 - Cloud Foundry CLI (for BTP deployment)

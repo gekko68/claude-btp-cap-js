@@ -1,0 +1,70 @@
+_schema-version: 3.3.0
+ID: bookshop-cap-sample
+version: 1.0.0
+description: "Sample SAP CAP project with bookshop service"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: bookshop-cap-sample-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: bookshop-cap-sample-auth
+      - name: bookshop-cap-sample-db
+      - name: bookshop-cap-sample-logging
+
+
+  - name: bookshop-cap-sample-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: bookshop-cap-sample-db
+
+resources:
+  # ----------------- LOGGING SERVICE ---------------------------
+  - name: bookshop-cap-sample-logging
+    # -----------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-name: ${space}-bookshop-cap-sample-logging
+      service-plan: lite
+
+  - name: bookshop-cap-sample-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      service-name: ${space}-bookshop-cap-sample-auth
+      path: ./xs-security.json
+      config:
+        xsappname: bookshop-cap-sample-${org}-${space}
+        tenant-mode: dedicated
+
+  - name: bookshop-cap-sample-db
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: service-manager
+      service-name: ${space}-bookshop-cap-sample-db
+      service-plan: container
+      polling_timeout_seconds: 240
+      config:
+        acquireTimeoutMillis: max
+        polling_timeout_seconds: 480

@@ -1,0 +1,60 @@
+{
+  "name": "bookshop-cap-sample",
+  "version": "1.0.0",
+  "description": "Sample SAP CAP project with bookshop service",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "cds watch",
+    "serve": "cds serve",
+    "build": "cds build",
+    "deploy:sqlite": "cds deploy --to sqlite",
+    "deploy:hana": "cds deploy --to hana",
+    "build:production": "cds build --production",
+    "build:mta": "mbt build",
+    "deploy:cf": "cf deploy mta_archives/bookshop-cap-sample_1.0.0.mtar ",
+    "build:deploy": "npm run build:mta && npm run deploy:cf ",
+    "undeploy:cf": "cf undeploy bookshop-cap-sample --delete-service-brokers --delete-service-keys --delete-services"
+  },
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@cap-js/sqlite": "^2",
+    "@sap/cds": "^9",
+    "express": "^4",
+    "hdb": "^2.25.1",
+    "@sap/xssec": "^4"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^9",
+    "mbt": "^1.2.34",
+    "sqlite3": "^5"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "[development]": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "bookshop.db"
+          }
+        },
+        "[production]": {
+          "kind": "hana"
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      }
+    },
+    "log": {
+      "levels": {
+        "bookshop-service": "info",
+        "server": "info"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "ISC"
+}

@@ -1,0 +1,11 @@
+ID,title,author,genre,price,stock,description,publishedAt
+1,Pride and Prejudice,Jane Austen,Romance,12.99,25,A romantic novel of manners,1813-01-28
+2,1984,George Orwell,Dystopian Fiction,13.99,30,A dystopian social science fiction novel,1949-06-08
+3,To Kill a Mockingbird,Harper Lee,Fiction,14.99,20,A gripping tale of racial injustice and childhood,1960-07-11
+4,The Great Gatsby,F. Scott Fitzgerald,Classic,11.99,15,A critique of the American Dream,1925-04-10
+5,Harry Potter and the Philosopher's Stone,J.K. Rowling,Fantasy,9.99,50,A young wizard's magical journey,1997-06-26
+6,The Catcher in the Rye,J.D. Salinger,Fiction,13.50,18,A coming-of-age story,1951-07-16
+7,Lord of the Rings,J.R.R. Tolkien,Fantasy,19.99,22,An epic fantasy adventure,1954-07-29
+8,The Hobbit,J.R.R. Tolkien,Fantasy,12.50,35,A hobbit's unexpected journey,1937-09-21
+9,Brave New World,Aldous Huxley,Science Fiction,13.25,28,A dystopian vision of the future,1932-08-30
+10,Jane Eyre,Charlotte Brontë,Romance,12.75,24,An orphan's journey to independence,1847-10-16

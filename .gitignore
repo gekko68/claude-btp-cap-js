@@ -1,1 +1,3 @@
+gen/**/* */
 node_modules/
+gen/db/node_modules/@sap/hdi-deploy/lib/version.server.js

@@ -1,0 +1,117 @@
+SAP CAP Bookshop Application Architecture Diagram (Mermaid Syntax)
+
+```mermaid
+graph TB
+    subgraph "SAP CAP Bookshop Application"
+        subgraph "Client Layer"
+            UI[Web UI/Fiori]
+            API[REST/OData Client]
+        end
+        
+        subgraph "Service Layer (srv/)"
+            SRV[BookshopService]
+            SRVJS[bookshop-service.js]
+            
+            SRV --> SRVJS
+        end
+        
+        subgraph "Business Logic"
+            CREATE[createBook Action]
+            READ[Books CRUD]
+            FILTER[getBooksByGenre Function]
+            
+            SRVJS --> CREATE
+            SRVJS --> READ
+            SRVJS --> FILTER
+        end
+        
+        subgraph "Data Layer (db/)"
+            SCHEMA[schema.cds]
+            BOOKS[Books Entity]
+            
+            SCHEMA --> BOOKS
+        end
+        
+        subgraph "Database"
+            DEV[(SQLite - Development)]
+            PROD[(HANA - Production)]
+        end
+        
+        subgraph "Runtime"
+            SERVER[server.js]
+            CAP[@sap/cds Framework]
+            
+            SERVER --> CAP
+        end
+        
+        subgraph "Deployment"
+            MTA[mta.yaml]
+            CF[Cloud Foundry]
+            BTP[SAP BTP]
+            
+            MTA --> CF
+            CF --> BTP
+        end
+    end
+    
+    %% Connections
+    UI --> SRV
+    API --> SRV
+    
+    CREATE --> BOOKS
+    READ --> BOOKS
+    FILTER --> BOOKS
+    
+    BOOKS --> DEV
+    BOOKS --> PROD
+    
+    CAP --> SRV
+    CAP --> SCHEMA
+    
+    %% Styling
+    classDef service fill:#e1f5fe
+    classDef data fill:#f3e5f5
+    classDef runtime fill:#e8f5e8
+    classDef deploy fill:#fff3e0
+    
+    class SRV,SRVJS,CREATE,READ,FILTER service
+    class SCHEMA,BOOKS,DEV,PROD data
+    class SERVER,CAP runtime
+    class MTA,CF,BTP deploy
+```
+
+Architecture Overview:
+
+1. CLIENT LAYER
+   - Web UI/Fiori applications
+   - REST/OData API clients
+
+2. SERVICE LAYER (srv/)
+   - BookshopService: CDS service definition
+   - bookshop-service.js: JavaScript implementation
+
+3. BUSINESS LOGIC
+   - createBook Action: Custom book creation
+   - Books CRUD: Standard read/write operations
+   - getBooksByGenre Function: Filtered book retrieval
+
+4. DATA LAYER (db/)
+   - schema.cds: Data model definition
+   - Books Entity: Core business entity
+
+5. DATABASE
+   - SQLite: Local development database
+   - HANA: Production cloud database
+
+6. RUNTIME
+   - server.js: Application bootstrap
+   - @sap/cds: CAP framework core
+
+7. DEPLOYMENT
+   - mta.yaml: Multi-target application descriptor
+   - Cloud Foundry: Runtime platform
+   - SAP BTP: Cloud platform
+
+Data Flow:
+Clients → Service → Business Logic → Data Entity → Database
+All orchestrated by the CAP framework with automatic OData/REST API generation.

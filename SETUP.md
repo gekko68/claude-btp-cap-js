@@ -31,3 +31,20 @@ Create a PR for the current branch
 ```
  Commit all remaining files , push and create a new PR
 ```
+
+### Prepare for Production
+
+#### SAP HANA Database
+
+cds add hana
+```
+Add support for Hana 
+```
+
+#### Authorization
+
+cds add xsuaa
+
+```
+Add xsuaa based authorization
+```
